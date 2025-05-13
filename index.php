@@ -14,10 +14,10 @@ try {
   $orderProductRepo = new OrderProduct($pdo);
 
   // Вставка новых записей, для работы нужно указывать новые значения name
-  $shop = $shopRepo->insert(['name', 'address'], ['MyShop3', '123 Main St']);
-  $client = $clientRepo->insert(['name', 'phone'], ['Ivan2', '+79991234567']);
+  $shop = $shopRepo->insert(['name', 'address'], ['MyShop7', '123 Main St']);
+  $client = $clientRepo->insert(['name', 'phone'], ['Ivan6', '+79991234567']);
+  $product = $productRepo->insert(['name', 'price', 'count'], ['apple golden 2', 20, 100]);
   $order = $orderRepo->insert(['created_at', 'seller', 'buyer'], ['2025-05-10', 'Da', 'Thomas']);
-  $product = $productRepo->insert(['name', 'price', 'count'], ['apple golden', 20, 100]);
   $orderProduct = $orderProductRepo->insert(['name', 'price', 'count', 'created_at', 'seller', 'buyer'],
     ['apple red', 30, 110, '2025-05-11', 'Streat', 'Thomas']);
 
@@ -31,7 +31,7 @@ try {
 
   // Обновление
   $shopUpdated1 = $shopRepo->update((int)$shop['id'], ['address' => '456 New St']);
-  $shopUpdated2 = $shopRepo->update((int)$product['3'], ['count' => '300']);
+  $shopUpdated2 = $productRepo->update((int)$product['id'], ['count' => '300']);
   echo "--- После обновления магазина ---\n";
   print_r($shopUpdated1);
   print_r($shopUpdated2);
@@ -42,7 +42,7 @@ try {
   print_r($foundClient);
 
   // Удаление
-  $deleted = $clientRepo->delete((int)$client['11']);
+  $deleted = $clientRepo->delete((int)$client['id']);
   echo "Удален клиент? " . ($deleted ? "Да" : "Нет") . "\n";
 } catch (Exception $e) {
   echo "Ошибка: " . $e->getMessage();
